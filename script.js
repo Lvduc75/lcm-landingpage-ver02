@@ -43,18 +43,21 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Form submission
-    const contactForm = document.querySelector('.contact-form form');
+    const contactForm = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
+    
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
             // Get form data
-            const name = this.querySelector('input[name="name"]').value;
+            const fullname = this.querySelector('input[name="fullname"]').value;
             const email = this.querySelector('input[name="email"]').value;
             const subject = this.querySelector('input[name="subject"]').value;
             const message = this.querySelector('textarea[name="message"]').value;
             
             // Basic validation
-            if (!name || !email || !subject || !message) {
-                e.preventDefault();
+            if (!fullname || !email || !subject || !message) {
                 alert('Vui lòng điền đầy đủ thông tin!');
                 return;
             }
@@ -62,13 +65,46 @@ document.addEventListener('DOMContentLoaded', function() {
             // Email validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
-                e.preventDefault();
                 alert('Vui lòng nhập email hợp lệ!');
                 return;
             }
             
-            // Let FormSubmit handle the submission
-            // Form will submit normally to FormSubmit service
+            // Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang gửi...';
+            submitBtn.disabled = true;
+            
+            // Submit form using fetch
+            const formData = new FormData(this);
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show success message
+                    this.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    
+                    // Reset form
+                    this.reset();
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Có lỗi xảy ra khi gửi tin nhắn. Vui lòng thử lại!');
+                
+                // Reset button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            });
         });
     }
 

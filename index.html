@@ -252,24 +252,32 @@
                 </div>
 
                 <div class="contact-form">
-                    <!-- FormSubmit Form -->
-                    <form action="https://formsubmit.co/doanhhung250@gmail.com" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                    <form id="contactForm" action="https://formsubmit.co/doanhhung250@gmail.com" method="POST">
                         <div class="form-row">
-                            <input type="text" name="name" placeholder="Họ và tên" class="input-field" required>
+                            <input type="text" name="fullname" placeholder="Họ và tên" class="input-field" required>
                             <input type="email" name="email" placeholder="Email" class="input-field" required>
                         </div>
                         <input type="text" name="subject" placeholder="Tiêu đề" class="input-field" required>
                         <textarea name="message" placeholder="Nội dung tin nhắn" rows="4" class="input-field textarea-field" required></textarea>
                 
                         <!-- FormSubmit options -->
-                        <input type="hidden" name="_next" value="thank-you.html">
+                        <input type="hidden" name="_next" value="">
                         <input type="hidden" name="_subject" value="Liên hệ mới từ LCM Website">
                         <input type="hidden" name="_template" value="table">
                         <input type="hidden" name="_captcha" value="false">
                         <input type="text" name="_honey" style="display:none">
-                        
+                
                         <button type="submit" class="btn-primary btn-full">Gửi tin nhắn</button>
                     </form>
+                    
+                    <!-- Success message -->
+                    <div id="successMessage" class="success-message" style="display: none;">
+                        <div class="success-content">
+                            <i class="fas fa-check-circle"></i>
+                            <h3>Gửi mail thành công!</h3>
+                            <p>Bạn vui lòng đợi mail hồi đáp.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
