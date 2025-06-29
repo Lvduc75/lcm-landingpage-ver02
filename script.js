@@ -46,17 +46,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.querySelector('.contact-form form');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
             // Get form data
-            const formData = new FormData(this);
-            const name = this.querySelector('input[type="text"]').value;
-            const email = this.querySelector('input[type="email"]').value;
-            const subject = this.querySelectorAll('input[type="text"]')[1].value;
-            const message = this.querySelector('textarea').value;
+            const name = this.querySelector('input[name="name"]').value;
+            const email = this.querySelector('input[name="email"]').value;
+            const subject = this.querySelector('input[name="subject"]').value;
+            const message = this.querySelector('textarea[name="message"]').value;
             
             // Basic validation
             if (!name || !email || !subject || !message) {
+                e.preventDefault();
                 alert('Vui lòng điền đầy đủ thông tin!');
                 return;
             }
@@ -64,13 +62,13 @@ document.addEventListener('DOMContentLoaded', function() {
             // Email validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
+                e.preventDefault();
                 alert('Vui lòng nhập email hợp lệ!');
                 return;
             }
             
-            // Simulate form submission
-            alert('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất có thể.');
-            this.reset();
+            // Let FormSubmit handle the submission
+            // Form will submit normally to FormSubmit service
         });
     }
 

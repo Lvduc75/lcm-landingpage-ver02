@@ -763,4 +763,9 @@ body {
     .about-emoji {
         font-size: 4rem;
     }
+}
+
+/* Honeypot field */
+.hidden {
+    display: none;
 } 
