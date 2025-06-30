@@ -42,6 +42,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Add scroll to contact form for "Dùng thử ngay" button
+    const trialButton = document.querySelector('.btn-primary.btn-full');
+    if (trialButton && trialButton.textContent.trim() === 'Dùng thử ngay') {
+        trialButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            const contactSection = document.querySelector('#contact');
+            if (contactSection) {
+                const offsetTop = contactSection.offsetTop - 64; // Account for fixed navbar
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+
     // Form submission
     const contactForm = document.getElementById('contactForm');
     const successMessage = document.getElementById('successMessage');
